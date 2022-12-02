@@ -1,54 +1,54 @@
 {
-    "project_info": {
-      "project_number": "610886258731",
-      "project_id": "calmkaaj-62dff",
-      "storage_bucket": "calmkaaj-62dff.appspot.com"
-    },
-    "client": [
-      {
-        "client_info": {
-          "mobilesdk_app_id": "1:610886258731:android:34ae3871b557fdcb6a9a6e",
-          "android_client_info": {
-            "package_name": "com.kalmkaaj.calmkaaj"
+  "project_info": {
+    "project_number": "610886258731",
+    "project_id": "calmkaaj-62dff",
+    "storage_bucket": "calmkaaj-62dff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610886258731:android:34ae3871b557fdcb6a9a6e",
+        "android_client_info": {
+          "package_name": "com.kalmkaaj.calmkaaj"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610886258731-06avljose7hchs48uc07dlcov69e3it3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kalmkaaj.calmkaaj",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
           }
         },
-        "oauth_client": [
-          {
-            "client_id": "610886258731-06avljose7hchs48uc07dlcov69e3it3.apps.googleusercontent.com",
-            "client_type": 1,
-            "android_info": {
-              "package_name": "com.kalmkaaj.calmkaaj",
-              "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
-            }
-          },
-          {
-            "client_id": "610886258731-hae7nfbp4ipf7vdnmhndafc7fn9uej3p.apps.googleusercontent.com",
-            "client_type": 3
-          }
-        ],
-        "api_key": [
-          {
-            "current_key": "AIzaSyDn7JdNfu2xyYULIWPEYXmZxAnAkzOJAHY"
-          }
-        ],
-        "services": {
-          "appinvite_service": {
-            "other_platform_oauth_client": [
-              {
-                "client_id": "610886258731-hae7nfbp4ipf7vdnmhndafc7fn9uej3p.apps.googleusercontent.com",
-                "client_type": 3
-              },
-              {
-                "client_id": "610886258731-2qa9c3j01dvfno2k9qao2im4tlgn3229.apps.googleusercontent.com",
-                "client_type": 2,
-                "ios_info": {
-                  "bundle_id": "com.kalmkaaj.calmkaaj"
-                }
+        {
+          "client_id": "610886258731-hae7nfbp4ipf7vdnmhndafc7fn9uej3p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDn7JdNfu2xyYULIWPEYXmZxAnAkzOJAHY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610886258731-hae7nfbp4ipf7vdnmhndafc7fn9uej3p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "610886258731-2qa9c3j01dvfno2k9qao2im4tlgn3229.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kalmkaaj.calmkaaj"
               }
-            ]
-          }
+            }
+          ]
         }
       }
-    ],
-    "configuration_version": "1"
-  }
+    }
+  ],
+  "configuration_version": "1"
+}

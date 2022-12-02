@@ -33,16 +33,14 @@ const HomeScreen = ({navigation}) => {
         .orderBy('postTime', 'desc')
         .get()
         .then((querySnapshot) => {
-          console.log('Total Posts: ', querySnapshot.size);
+          // // console.log('Total Posts: ', querySnapshot.size);
 
           querySnapshot.forEach((doc) => {
             const {
               userId,
               post,
               postImg,
-              postTime,
-              likes,
-              comments,
+              postTime
             } = doc.data();
             list.push({
               id: doc.id,
@@ -52,28 +50,26 @@ const HomeScreen = ({navigation}) => {
                 'https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg',
               postTime: postTime,
               post,
-              postImg,
-              liked: false,
-              likes,
-              comments,
+              postImg
             });
           });
         });
 
+      // console.log(list)
       setPosts(list);
 
       if (loading) {
         setLoading(false);
       }
-
-      console.log('Posts: ', posts);
+      // // console.log('Posts: ', posts);
     } catch (e) {
       console.log(e);
     }
   };
+
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [loading]);
 
   useEffect(() => {
     fetchPosts();
@@ -100,8 +96,7 @@ const HomeScreen = ({navigation}) => {
   };
 
   const deletePost = (postId) => {
-    console.log('Current Post Id: ', postId);
-
+    // // console.log('Current Post Id: ', postId);
     firestore()
       .collection('posts')
       .doc(postId)
@@ -149,8 +144,9 @@ const HomeScreen = ({navigation}) => {
   const ListHeader = () => {
     return null;
   };
+
   return (
-    <SafeAreaView style={{flex: 1}}>
+     <SafeAreaView style={{flex: 1}}>
       {loading ? (
         <ScrollView
           style={{flex: 1}}
@@ -200,6 +196,7 @@ const HomeScreen = ({navigation}) => {
         <Container>
           <FlatList
             data={posts}
+            keyExtractor={item=>item.id}
             renderItem={({item}) => (
               <PostCard
                 item={item}
@@ -209,15 +206,23 @@ const HomeScreen = ({navigation}) => {
                 }
               />
             )}
-            keyExtractor={(item) => item.id}
             ListHeaderComponent={ListHeader}
             ListFooterComponent={ListHeader}
             showsVerticalScrollIndicator={false}
           />
         </Container>
       )}
-    </SafeAreaView>
+      </SafeAreaView>
   );
 };
 
 export default HomeScreen;
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1, 
+    alignItems: 'center', 
+    justifyContent: 'center'
+  },
+});
