@@ -37,7 +37,7 @@ const EditProfileScreen = () => {
     .get()
     .then((documentSnapshot) => {
       if( documentSnapshot.exists ) {
-        console.log('User Data', documentSnapshot.data());
+        // // console.log('User Data', documentSnapshot.data());
         setUserData(documentSnapshot.data());
       }
     })
@@ -46,7 +46,7 @@ const EditProfileScreen = () => {
   const handleUpdate = async() => {
     let imgUrl = await uploadImage();
 
-    if( imgUrl == null && userData.userImg ) {
+    if( imgUrl == null && userData.userImg ) {
       imgUrl = userData.userImg;
     }
 
@@ -58,12 +58,10 @@ const EditProfileScreen = () => {
       lname: userData.lname,
       about: userData.about,
       phone: userData.phone,
-      country: userData.country,
-      city: userData.city,
       userImg: imgUrl,
     })
     .then(() => {
-      console.log('User Updated!');
+      // console.log('User Updated!');
       Alert.alert(
         'Profile Updated!',
         'Your profile has been updated successfully.'
@@ -133,7 +131,7 @@ const EditProfileScreen = () => {
       cropping: true,
       compressImageQuality: 0.7,
     }).then((image) => {
-      console.log(image);
+      // // console.log(image);
       const imageUri = Platform.OS === 'ios' ? image.sourceURL : image.path;
       setImage(imageUri);
       this.bs.current.snapTo(1);
@@ -147,7 +145,7 @@ const EditProfileScreen = () => {
       cropping: true,
       compressImageQuality: 0.7,
     }).then((image) => {
-      console.log(image);
+      // // console.log(image);
       const imageUri = Platform.OS === 'ios' ? image.sourceURL : image.path;
       setImage(imageUri);
       this.bs.current.snapTo(1);
@@ -303,34 +301,7 @@ const EditProfileScreen = () => {
             style={styles.textInput}
           />
         </View>
-
-        <View style={styles.action}>
-          <FontAwesome name="globe" color="#333333" size={20} />
-          <TextInput
-            placeholder="Country"
-            placeholderTextColor="#666666"
-            autoCorrect={false}
-            value={userData ? userData.country : ''}
-            onChangeText={(txt) => setUserData({...userData, country: txt})}
-            style={styles.textInput}
-          />
-        </View>
-        <View style={styles.action}>
-          <MaterialCommunityIcons
-            name="map-marker-outline"
-            color="#333333"
-            size={20}
-          />
-          <TextInput
-            placeholder="City"
-            placeholderTextColor="#666666"
-            autoCorrect={false}
-            value={userData ? userData.city : ''}
-            onChangeText={(txt) => setUserData({...userData, city: txt})}
-            style={styles.textInput}
-          />
-        </View>
-        <FormButton buttonTitle="Update" onPress={handleUpdate} />
+        <FormButton buttonTitle="Update" onPress={handleUpdate} style={styles.panelButton} />
       </Animated.View>
     </View>
   );
@@ -387,11 +358,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   panelButton: {
-    padding: 13,
-    borderRadius: 10,
-    backgroundColor: '#2e64e5',
-    alignItems: 'center',
-    marginVertical: 7,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 8,
+    paddingHorizontal: 15,
+    margin: '1%',
+    backgroundColor: '#44a6c6',
+    borderRadius: 100
   },
   panelButtonTitle: {
     fontSize: 17,

@@ -7,6 +7,7 @@ import {
   StyleSheet,
   ScrollView,
   SafeAreaView,
+  Alert,
 } from 'react-native';
 import FormButton from '../components/FormButton';
 import {AuthContext} from '../navigation/AuthProvider';
@@ -32,7 +33,7 @@ const ProfileScreen = ({navigation, route}) => {
         .orderBy('postTime', 'desc')
         .get()
         .then((querySnapshot) => {
-          // console.log('Total Posts: ', querySnapshot.size);
+          // // console.log('Total Posts: ', querySnapshot.size);
 
           querySnapshot.forEach((doc) => {
             const {
@@ -65,7 +66,7 @@ const ProfileScreen = ({navigation, route}) => {
         setLoading(false);
       }
 
-      console.log('Posts: ', posts);
+      // console.log('Posts: ', posts);
     } catch (e) {
       console.log(e);
     }
@@ -78,7 +79,7 @@ const ProfileScreen = ({navigation, route}) => {
     .get()
     .then((documentSnapshot) => {
       if( documentSnapshot.exists ) {
-        console.log('User Data', documentSnapshot.data());
+        // // console.log('User Data', documentSnapshot.data());
         setUserData(documentSnapshot.data());
       }
     })
@@ -90,7 +91,71 @@ const ProfileScreen = ({navigation, route}) => {
     navigation.addListener("focus", () => setLoading(!loading));
   }, [navigation, loading]);
 
-  const handleDelete = () => {};
+  const handleDelete = (postId) => {
+    Alert.alert(
+      'Delete post',
+      'Are you sure?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed!'),
+          style: 'cancel',
+        },
+        {
+          text: 'Confirm',
+          onPress: () => deletePost(postId),
+        },
+      ],
+      {cancelable: false},
+    );
+  };
+
+  const deletePost = (postId) => {
+    // // console.log('Current Post Id: ', postId);
+
+    firestore()
+      .collection('posts')
+      .doc(postId)
+      .get()
+      .then((documentSnapshot) => {
+        if (documentSnapshot.exists) {
+          const {postImg} = documentSnapshot.data();
+
+          if (postImg != null) {
+            const storageRef = storage().refFromURL(postImg);
+            const imageRef = storage().ref(storageRef.fullPath);
+
+            imageRef
+              .delete()
+              .then(() => {
+                console.log(`${postImg} has been deleted successfully.`);
+                deleteFirestoreData(postId);
+              })
+              .catch((e) => {
+                console.log('Error while deleting the image. ', e);
+              });
+            // If the post image is not available
+          } else {
+            deleteFirestoreData(postId);
+          }
+        }
+      });
+  };
+
+  const deleteFirestoreData = (postId) => {
+    firestore()
+      .collection('posts')
+      .doc(postId)
+      .delete()
+      .then(() => {
+        Alert.alert(
+          'Post deleted!',
+          'Your post has been deleted successfully!',
+        );
+        setDeleted(true);
+      })
+      .catch((e) => console.log('Error deleting posst.', e));
+  };
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
@@ -110,9 +175,9 @@ const ProfileScreen = ({navigation, route}) => {
         <View style={styles.userBtnWrapper}>
           {route.params ? (
             <>
-              <TouchableOpacity style={styles.userBtn} onPress={() => {}}>
+              {/* <TouchableOpacity style={styles.userBtn} onPress={() => {}}>
                 <Text style={styles.userBtnTxt}>Message</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </>
           ) : (
             <>
@@ -178,15 +243,16 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   userBtn: {
-    borderColor: '#2e64e5',
-    borderWidth: 2,
-    borderRadius: 3,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     paddingVertical: 8,
-    paddingHorizontal: 12,
-    marginHorizontal: 5,
+    paddingHorizontal: 15,
+    margin: '1%',
+    backgroundColor: '#44a6c6',
+    borderRadius: 100
   },
   userBtnTxt: {
-    color: '#2e64e5',
+    color: '#fff',
   },
   userInfoWrapper: {
     flexDirection: 'row',

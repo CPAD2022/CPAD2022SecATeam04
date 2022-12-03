@@ -14,7 +14,7 @@ const LoginScreen = ({navigation}) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Image
-        source={require('../assets/rn-social-logo.png')}
+        source={require('../assets/calmkaaj-logo.png')}
         style={styles.logo}
       />
       <Text style={styles.text}>CalmKaaj</Text>
@@ -37,14 +37,17 @@ const LoginScreen = ({navigation}) => {
         secureTextEntry={true}
       />
 
-      <FormButton
+      <SocialButton
         buttonTitle="Sign In"
+        btnType="sign-in"
+        color="#fff"
+        backgroundColor="#44a6c6"
         onPress={() => login(email, password)}
       />
 
-      <TouchableOpacity style={styles.forgotButton} onPress={() => {}}>
+      {/* <TouchableOpacity style={styles.forgotButton} onPress={() => {}}>
         <Text style={styles.navButtonText}>Forgot Password?</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       {Platform.OS === 'android' ? (
         <View>
@@ -63,7 +66,7 @@ const LoginScreen = ({navigation}) => {
         style={styles.forgotButton}
         onPress={() => navigation.navigate('Signup')}>
         <Text style={styles.navButtonText}>
-          Don't have an acount? Create here
+          Don't have an account? Create here
         </Text>
       </TouchableOpacity>
     </ScrollView>
@@ -102,4 +105,13 @@ const styles = StyleSheet.create({
     color: '#2e64e5',
     fontFamily: 'Lato-Regular',
   },
+  signinButton: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 8,
+    paddingHorizontal: 15,
+    backgroundColor: '#44a6c6',
+    borderRadius: 100
+  }
 });
